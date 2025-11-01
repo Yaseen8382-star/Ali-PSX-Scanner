@@ -16,15 +16,16 @@ jobs:
         with:
           flutter-version: '3.22.0'
 
+      - name: Set working directory
+        run: echo "PROJECT_DIR=app" >> $GITHUB_ENV
+
       - name: Get dependencies
-        run: |
-          cd app
-          flutter pub get
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: flutter pub get
 
       - name: Build APK
-        run: |
-          cd app
-          flutter build apk --release
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: flutter build apk --release
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
